@@ -1,0 +1,6 @@
+1 Adding and removing trainings
+2 Searching through existing trainings and exercises in order to us it again
+3 Editing trainings and Exercises
+4 validator dla cwiczeni z tym samy id
+5 validator dla cwiczen oraz treningo z ta sama nazwa
+6 cwiczenia powinny byc zapisywane w innym pliku niz treningi

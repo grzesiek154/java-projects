@@ -3,25 +3,46 @@ import java.sql.*;
 
 public class JDBC_connector {
 
-    private static final String url = "jdbc:mysql://localhost:3306/trainings_notebook?useSSL=false";
-    private static final String user = "admin";
-    private static final String password = "admin";
 
+    private static Connection con;
+    private static Statement st;
+    private String url;
+    private String user;
+    private String password;
 
+    public JDBC_connector(String url, String user, String password) {
+        this.url = url;
+        this.user = user;
+        this.password = password;
 
-     public static void getConnection() {
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            st = con.createStatement();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+    }
 
-         String query = "SELECT VERSION()";
+    public static Connection getConnection(String url, String user, String password) {
+
          try {
-             Connection con = DriverManager.getConnection(url, user, password);
-             Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(query);
-
-             while (rs.next()) {
-                 System.out.println(rs.getString("name"));
-             }
+             con = DriverManager.getConnection(url, user, password);
          } catch (SQLException throwable) {
              throwable.printStackTrace();
          }
+         return con;
      }
+
+     public static void closeConnection() {
+         try {
+             con.close();
+         } catch (SQLException throwables) {
+             throwables.printStackTrace();
+         }
+     }
+
+
+
+
+
 }

@@ -1,5 +1,9 @@
 package entities;
 
+import java.sql.Connection;
+import java.util.Arrays;
+import java.util.Optional;
+
 public class Exercise {
 
     private int id;
@@ -8,6 +12,7 @@ public class Exercise {
     private String description;
     private int reps;
     private int duration;
+    private Workout workout;
 
 
     private Exercise(ExerciseBuilder builder) {
@@ -17,6 +22,26 @@ public class Exercise {
         this.description = builder.description;
         this.reps = builder.reps;
         this.duration = builder.time;
+        this.workout = builder.workout;
+    }
+
+    public static void insertExercise(Connection con, Exercise exercise) {
+
+        Optional<Exercise> optionalExercise = Optional.of(exercise);
+
+        String query_part1 = "INSERT INTO exercises ( ";
+        String query_part2 = "VALUES (";
+        String name = exercise.getName();
+        String type = exercise.getType();
+
+        if(name.isEmpty()) {
+            throw new NullPointerException("Exercise name not provided");
+        }
+        if(type != null) {
+
+        }
+        EntityManagement.doQuery(con, "temp");
+
     }
 
     public int getId() {
@@ -53,10 +78,12 @@ public class Exercise {
         private String description;
         private int reps;
         private int time;
+        private Workout workout;
 
-        public ExerciseBuilder(int id, String name) {
+        public ExerciseBuilder(int id, String name, Workout workout) {
             this.id = id;
             this.name = name;
+            this.workout = workout;
         }
 
         public ExerciseBuilder type(String type) {
@@ -77,6 +104,7 @@ public class Exercise {
             this.time = time;
             return this;
         }
+
 
         public Exercise build() {
             Exercise exercise = new Exercise(this);

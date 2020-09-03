@@ -27,6 +27,6 @@ name varchar(50) NOT NULL
 );
 
 SELECT * FROM trainings
-SELECT * FROM exercises
+SELECT * FROM exerices
 
 DROP TABLE IF EXISTS exercises

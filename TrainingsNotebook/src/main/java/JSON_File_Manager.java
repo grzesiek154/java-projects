@@ -72,7 +72,6 @@ public class JSON_File_Manager {
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(pathToFile));
 
             Map<String, Object> trainingMap = new HashMap<>();
-            trainingMap.put("id", exercise.getId());
             trainingMap.put("name", exercise.getName());
             trainingMap.put("type", exercise.getType());
             if (exercise.getDescription() != null){

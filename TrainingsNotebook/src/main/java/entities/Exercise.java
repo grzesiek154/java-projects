@@ -1,12 +1,12 @@
 package entities;
 
 import java.sql.Connection;
-import java.util.Arrays;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Stream;
 
-public class Exercise {
+public class Exercise extends EntityManagement{
 
-    private int id;
+
     private String name;
     private String type;
     private String description;
@@ -16,7 +16,6 @@ public class Exercise {
 
 
     private Exercise(ExerciseBuilder builder) {
-        this.id = builder.id;
         this.name = builder.name;
         this.type = builder.type;
         this.description = builder.description;
@@ -25,27 +24,61 @@ public class Exercise {
         this.workout = builder.workout;
     }
 
-    public static void insertExercise(Connection con, Exercise exercise) {
+    public static void insertExercise(Exercise exercise) {
 
-        Optional<Exercise> optionalExercise = Optional.of(exercise);
+        String test = "test";
 
-        String query_part1 = "INSERT INTO exercises ( ";
+
         String query_part2 = "VALUES (";
-        String name = exercise.getName();
-        String type = exercise.getType();
+        StringBuffer part1_buffer = new StringBuffer();
+        StringBuffer part2_buffer = new StringBuffer(query_part2);
 
-        if(name.isEmpty()) {
-            throw new NullPointerException("Exercise name not provided");
-        }
-        if(type != null) {
+        String query_part1 = "INSERT INTO exercises (" + part1_buffer + ")";
+        Map<String,String> queryValues = exercise.getPresentValues(exercise);
 
-        }
-        EntityManagement.doQuery(con, "temp");
+
+
+        queryValues.entrySet().stream().forEach(e ->  part1_buffer.append(e.getKey()+ ","));
+
+        System.out.println(query_part1);
+
+        //EntityManagement.doQuery(con, "temp");
 
     }
 
-    public int getId() {
-        return id;
+
+    private Map<String,String> getPresentValues(Exercise exercise) {
+
+        Map queryValues = new HashMap();
+
+        String name = exercise.getName();
+        String type = exercise.getType();
+        String description = exercise.getDescription();
+        int duration = exercise.getDuration();
+        int reps = exercise.getReps();
+
+        if(name.isEmpty()) {
+            throw new NullPointerException("Exercise name not provided");
+
+        } else {
+            queryValues.put("name", name);
+        }
+
+        if(type != null) {
+
+            queryValues.put("type", type);
+        }
+        if(description != null) {
+            queryValues.put("description", description);
+        }
+        if(duration != 0) {
+            queryValues.put("duration", String.valueOf(duration));
+        }
+        if(reps != 0) {
+           queryValues.put("reps", String.valueOf(reps));
+        }
+
+        return queryValues;
     }
 
     public String getName() {
@@ -72,7 +105,6 @@ public class Exercise {
 
 
     public static class ExerciseBuilder {
-        private int id;
         private String name;
         private String type;
         private String description;
@@ -80,8 +112,7 @@ public class Exercise {
         private int time;
         private Workout workout;
 
-        public ExerciseBuilder(int id, String name, Workout workout) {
-            this.id = id;
+        public ExerciseBuilder(String name, Workout workout) {
             this.name = name;
             this.workout = workout;
         }

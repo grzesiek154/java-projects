@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.util.*;
 import java.util.stream.Stream;
 
-public class Exercise extends EntityManagement{
+public class Exercise {
 
 
     private String name;
@@ -24,25 +24,24 @@ public class Exercise extends EntityManagement{
         this.workout = builder.workout;
     }
 
-    public static void insertExercise(Exercise exercise) {
+    public static void insertExercise(Connection con, Exercise exercise) {
 
-        String test = "test";
-
-
-        String query_part2 = "VALUES (";
         StringBuffer part1_buffer = new StringBuffer();
-        StringBuffer part2_buffer = new StringBuffer(query_part2);
+        StringBuffer part2_buffer = new StringBuffer();
+        String query_part1;
+        String query_part2;
+        String finalQuery;
 
-        String query_part1 = "INSERT INTO exercises (" + part1_buffer + ")";
         Map<String,String> queryValues = exercise.getPresentValues(exercise);
+        queryValues.entrySet().stream().forEach(e ->  part1_buffer.append(e.getKey().toLowerCase()+ ","));
+        queryValues.entrySet().stream().forEach(e -> part2_buffer.append("'" + e.getValue().toLowerCase()+"',"));
 
+        query_part1 = "INSERT INTO exercises (" + part1_buffer.deleteCharAt(part1_buffer.length()-1).toString() + ") ";
+        query_part2 = "VALUES( " + part2_buffer.deleteCharAt(part2_buffer.length()-1) + ")";
+        finalQuery = query_part1 + query_part2;
+        System.out.println(finalQuery);
 
-
-        queryValues.entrySet().stream().forEach(e ->  part1_buffer.append(e.getKey()+ ","));
-
-        System.out.println(query_part1);
-
-        //EntityManagement.doQuery(con, "temp");
+        EntityManagement.doQuery(con, finalQuery);
 
     }
 
@@ -59,13 +58,11 @@ public class Exercise extends EntityManagement{
 
         if(name.isEmpty()) {
             throw new NullPointerException("Exercise name not provided");
-
         } else {
             queryValues.put("name", name);
         }
 
         if(type != null) {
-
             queryValues.put("type", type);
         }
         if(description != null) {
@@ -77,7 +74,6 @@ public class Exercise extends EntityManagement{
         if(reps != 0) {
            queryValues.put("reps", String.valueOf(reps));
         }
-
         return queryValues;
     }
 

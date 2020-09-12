@@ -15,15 +15,6 @@ public class ClassForTesting {
 
     public static void main(String[] args) {
 
-       Stream<Field> fieldStream = Arrays.stream(Exercise.class.getDeclaredFields());
-       List<String> fieldNames = new ArrayList<>();
-
-       fieldStream.forEach(x -> fieldNames.add(x.getName()));
-
-       for(String name:fieldNames) {
-           System.out.println(name);
-       }
-
-        Exercise.insertExercise(exercise);
+        //Exercise.insertExercise(exercise);
     }
 }

@@ -30,5 +30,8 @@ public class Main {
         Workout.isWorkoutExist(con, "wyrkoki");
         Workout.updateWorkoutName(con,"wyrkoki", "wykroki");
         Workout.printWorkouts(con);
+
+
+
     }
 }

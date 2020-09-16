@@ -1,5 +1,7 @@
 package entities;
 
+import Exceptions.DataDoNotExistInDb;
+
 import java.sql.Connection;
 import java.util.*;
 import java.util.stream.Stream;
@@ -23,28 +25,6 @@ public class Exercise {
         this.duration = builder.time;
         this.workout = builder.workout;
     }
-
-    public static void insertExercise(Connection con, Exercise exercise) {
-
-        StringBuffer part1_buffer = new StringBuffer();
-        StringBuffer part2_buffer = new StringBuffer();
-        String query_part1;
-        String query_part2;
-        String finalQuery;
-
-        Map<String,String> queryValues = exercise.getPresentValues(exercise);
-        queryValues.entrySet().stream().forEach(e ->  part1_buffer.append(e.getKey().toLowerCase()+ ","));
-        queryValues.entrySet().stream().forEach(e -> part2_buffer.append("'" + e.getValue().toLowerCase()+"',"));
-
-        query_part1 = "INSERT INTO exercises (" + part1_buffer.deleteCharAt(part1_buffer.length()-1).toString() + ") ";
-        query_part2 = "VALUES( " + part2_buffer.deleteCharAt(part2_buffer.length()-1) + ")";
-        finalQuery = query_part1 + query_part2;
-        System.out.println(finalQuery);
-
-        EntityManagement.doQuery(con, finalQuery);
-
-    }
-
 
     private Map<String,String> getPresentValues(Exercise exercise) {
 
@@ -72,10 +52,49 @@ public class Exercise {
             queryValues.put("duration", String.valueOf(duration));
         }
         if(reps != 0) {
-           queryValues.put("reps", String.valueOf(reps));
+            queryValues.put("reps", String.valueOf(reps));
         }
         return queryValues;
     }
+
+    public static void insertExercise(Connection con, Exercise exercise) {
+
+        StringBuffer part1_buffer = new StringBuffer();
+        StringBuffer part2_buffer = new StringBuffer();
+        String query_part1;
+        String query_part2;
+        String finalQuery;
+
+        Map<String,String> queryValues = exercise.getPresentValues(exercise);
+        queryValues.entrySet().stream().forEach(e ->  part1_buffer.append(e.getKey().toLowerCase()+ ","));
+        queryValues.entrySet().stream().forEach(e -> part2_buffer.append("'" + e.getValue().toLowerCase()+"',"));
+
+        query_part1 = "INSERT INTO exercises (" + part1_buffer.deleteCharAt(part1_buffer.length()-1).toString() + ") ";
+        query_part2 = "VALUES( " + part2_buffer.deleteCharAt(part2_buffer.length()-1) + ")";
+        finalQuery = query_part1 + query_part2;
+        System.out.println(finalQuery);
+
+        EntityManagement.doQuery(con, finalQuery);
+
+    }
+
+    public static void updateExerciseData(Connection con, String oldValue, String newValue) {
+
+        boolean isWorkoutInDb = Workout.isWorkoutExist(con, oldValue);
+
+        if(!isWorkoutInDb) {
+            try {
+                throw new DataDoNotExistInDb("Workout with name: " + oldValue + " do not exist in database");
+            } catch (DataDoNotExistInDb dataDoNotExistInDb) {
+                dataDoNotExistInDb.printStackTrace();
+            }
+        }
+
+        String query = "UPDATE workouts SET name = "+ "'" + newValue + "'" + " WHERE name = " + "'" + oldValue + "'";
+        EntityManagement.doQuery(con, query);
+    }
+
+
 
     public String getName() {
         return name;

@@ -107,3 +107,32 @@ Polymorphism is a OOPs concept where one name can have many forms also knows as 
 - Overriding deals with two methods, one in parent class and one in child class and both have same name and signature.
 - Subclass method overrides the method from super class.
 - In overriding sub classes access modifier must be greater than parent class E.g if we use *public abc()* in parent class and *private abc()* in sub class that will throw exception.
+
+# Static Class Loading and Dynamic Class Loading
+
+- Loading the class to JVM to run is called class loading.
+- Classes are statically loaded using new operator.
+- Very first class is loaded using static main() method and then subsequent class are loaded.
+- Server based projects do not have main() at all, server provides  infrastructure. Class to be loaded first is mentioned in config file. So the framework implements main() method and provides API in many cases.  E.g: Container invokes init() method in servelets.
+- Main is required when Java program is run on JVM from command prompt.
+- NoClassDefinationFoundException is thrown if class reference is not found during static class loading.
+- Dynamic class loading is programmatically invoking class at run time. E.g: Class.forName(String ClassName);
+- ClassNotFoundException is thrown for dynamic class loading.
+
+# Abstract Class and Interface
+
+- Interface has no implementation code and all methods are abstract i.e. all methods are only declared and none are defined.
+- Abstract class has executable methods and abstract methods.
+- A class can implement any number of interfaces but can extend only one abstract class.
+- In abstract class methods can be abstract and may not be.
+- An abstract class cannot be instantiated in can only be subclassed.
+- All abstract methods must be defined in subclass else the subclass should be abstract.
+- Interface cannot be instantiated it can only be implemented by other classes or extended by other interfaces.
+- Interface variables are final and static; interface methods are public and abstract by default.
+- Interface cannot contain implementation and cannot be subclassed, so variables have to be constant.
+
+# Java Packages
+
+Here are some libraries available in java package to help code better. We will discuss them all eventually.
+
+![Image for post](https://miro.medium.com/max/889/1*9-kl0KixCNNWIxo_6NmndA.png)

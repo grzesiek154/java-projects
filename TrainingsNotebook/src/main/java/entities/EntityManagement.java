@@ -27,6 +27,8 @@ public class EntityManagement {
         }
     }
 
+
+
     public static boolean getDataById(Connection con, String tableName, int id) {
 
         Statement st;

@@ -18,6 +18,7 @@ public class Workout {
 
 
     public static void insertWorkout(Connection con, Workout workout) {
+
         boolean isAlreadyInDb = isWorkoutExist(con, workout.getName());
 
         if (isAlreadyInDb) {

@@ -4,9 +4,8 @@ import Exceptions.DataDoNotExistInDb;
 
 import java.sql.Connection;
 import java.util.*;
-import java.util.stream.Stream;
 
-public class Exercise {
+public class Exercise extends BaseEntity {
 
 
     private String name;
@@ -26,7 +25,7 @@ public class Exercise {
         this.workout = builder.workout;
     }
 
-    private Map<String,String> getPresentValues(Exercise exercise) {
+    private Map<String,String> getPresentData(Exercise exercise) {
 
         Map queryValues = new HashMap();
 
@@ -65,9 +64,9 @@ public class Exercise {
         String query_part2;
         String finalQuery;
 
-        Map<String,String> queryValues = exercise.getPresentValues(exercise);
-        queryValues.entrySet().stream().forEach(e ->  part1_buffer.append(e.getKey().toLowerCase()+ ","));
-        queryValues.entrySet().stream().forEach(e -> part2_buffer.append("'" + e.getValue().toLowerCase()+"',"));
+        Map<String,String> queryData = exercise.getPresentData(exercise);
+        queryData.entrySet().stream().forEach(e ->  part1_buffer.append(e.getKey().toLowerCase()+ ","));
+        queryData.entrySet().stream().forEach(e -> part2_buffer.append("'" + e.getValue().toLowerCase()+"',"));
 
         query_part1 = "INSERT INTO exercises (" + part1_buffer.deleteCharAt(part1_buffer.length()-1).toString() + ") ";
         query_part2 = "VALUES( " + part2_buffer.deleteCharAt(part2_buffer.length()-1) + ")";
@@ -78,21 +77,23 @@ public class Exercise {
 
     }
 
-    public static void updateExerciseData(Connection con, String oldValue, String newValue) {
 
-        boolean isWorkoutInDb = Workout.isWorkoutExist(con, oldValue);
-
-        if(!isWorkoutInDb) {
-            try {
-                throw new DataDoNotExistInDb("Workout with name: " + oldValue + " do not exist in database");
-            } catch (DataDoNotExistInDb dataDoNotExistInDb) {
-                dataDoNotExistInDb.printStackTrace();
-            }
-        }
-
-        String query = "UPDATE workouts SET name = "+ "'" + newValue + "'" + " WHERE name = " + "'" + oldValue + "'";
-        EntityManagement.doQuery(con, query);
-    }
+//    public static void updateExerciseData(Connection con, Exercise exercise) {
+//
+//        boolean isWorkoutInDb = Workout.isWorkoutExist(con, oldValue);
+//
+//
+//        if(!isWorkoutInDb) {
+//            try {
+//                throw new DataDoNotExistInDb("Workout with name: " + oldValue + " do not exist in database");
+//            } catch (DataDoNotExistInDb dataDoNotExistInDb) {
+//                dataDoNotExistInDb.printStackTrace();
+//            }
+//        }
+//
+//        String query = "UPDATE workouts SET name = "+ "'" + newValue + "'" + " WHERE name = " + "'" + oldValue + "'";
+//        EntityManagement.doQuery(con, query);
+//    }
 
 
 

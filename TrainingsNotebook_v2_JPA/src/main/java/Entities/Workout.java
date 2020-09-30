@@ -3,15 +3,22 @@ package Entities;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
+@Entity(name = "Workouts")
 @Table(name = "workouts")
-public class Workout implements Serializable {
+public class Workout implements Serializable{
+
+    public Workout(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public Workout() {
+    }
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "id", unique = true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name", nullable = false)

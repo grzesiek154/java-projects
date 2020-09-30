@@ -1,22 +1,58 @@
 package Controllers;
 
-import Entities.BaseController;
+import Entities.Exercise;
 import Entities.Workout;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class WorkoutController {
+public class ExerciseController {
 
-    private List<String> COLUMNS_NAMES = Arrays.asList("name", "description");
     private static EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("TrainingsNotebook_v2_JPA");
 
 
-    public static void addWorkout(String name, String description) {
+//
+//    private static Exercise checkValues(String field, String value, Exercise exercise) {
+//
+//        if (field.toLowerCase() == "name") {
+//            exercise.setName(value);
+//        } else if (field.toLowerCase() == "description") {
+//            exercise.setDescription(value);
+//        }
+//        return exercise;
+//    }
+
+    public static Exercise createProperExercise(Map<String,Object> values) {
+
+        Exercise.ExerciseBuilder exercise = new Exercise.ExerciseBuilder();
+
+         for(Map.Entry<String, Object> entry : values.entrySet()) {
+
+             Object mapValue = entry.getValue();
+             String mapKey = entry.getKey().toLowerCase();
+             System.out.println("map key " + mapKey);
+
+             if(mapKey == "name") {
+                 exercise.name(mapValue.toString());
+             } else if (mapValue == "workoutId") {
+                 WorkoutController.getWorkout(Long.valueOf(mapValue.toString()));
+             } else if (mapKey.equalsIgnoreCase("description")) {
+                 exercise.description(mapValue.toString());
+             } else if (mapKey.equalsIgnoreCase("type")) {
+                 exercise.type(mapValue.toString());
+             } else if (mapKey.equalsIgnoreCase("reps")) {
+                 exercise.reps(Integer.valueOf(mapValue.toString()));
+             } else if (mapKey.equalsIgnoreCase("time")) {
+                 exercise.time(Integer.valueOf(mapValue.toString()));
+             }
+         }
+
+         return exercise.build();
+    }
+
+    public static void addExercise(Map<String,Object> exerciseData) {
 
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -26,11 +62,10 @@ public class WorkoutController {
             et = em.getTransaction();
             et.begin();
 
-            Workout workout = new Workout();
-            workout.setName(name);
-            workout.setDescription(description);
+            Exercise exercise = ExerciseController.createProperExercise(exerciseData);
 
-            em.persist(workout);
+
+            em.persist(exercise);
             et.commit();
             System.out.println("workout added");
         } catch (Exception ex) {
@@ -101,40 +136,30 @@ public class WorkoutController {
         }
     }
 
-    private static Workout checkFiledToUpdate(String field, String value, Workout workout) {
-
-        if (field.toLowerCase() == "name") {
-            workout.setName(value);
-        } else if (field.toLowerCase() == "description") {
-            workout.setDescription(value);
-        }
-        return workout;
-    }
-
-    public static void updateWorkout(Long id, String field, String value) {
-        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
-        EntityTransaction et = null;
-
-        Workout workout;
-        Workout updatedWorkout;
-
-        try {
-            et = em.getTransaction();
-            et.begin();
-            workout = em.find(Workout.class, id);
-            updatedWorkout = WorkoutController.checkFiledToUpdate(field, value, workout);
-
-            em.persist(updatedWorkout);
-            et.commit();
-        } catch (Exception ex) {
-
-            if (et != null) {
-                et.rollback();
-            }
-        } finally {
-            em.close();
-        }
-    }
+//    public static void updateExercise(Long id, String field, String value) {
+//        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+//        EntityTransaction et = null;
+//
+//        Exercise exercise;
+//        Exercise updatedExercise;
+//
+//        try {
+//            et = em.getTransaction();
+//            et.begin();
+//            exercise = em.find(Exercise.class, id);
+//            updatedExercise = ExerciseController.checkValues(field, value, exercise);
+//
+//            em.persist(updatedExercise);
+//            et.commit();
+//        } catch (Exception ex) {
+//
+//            if (et != null) {
+//                et.rollback();
+//            }
+//        } finally {
+//            em.close();
+//        }
+//    }
 
     public static void deleteWorkout(Long id) {
 

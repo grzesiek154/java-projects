@@ -46,6 +46,7 @@ public class TestSystem {
     }
 
     public static void getCustomer(int id) {
+
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         String query = "SELECT c FROM Customer c WHERE c.id = :custID";
 

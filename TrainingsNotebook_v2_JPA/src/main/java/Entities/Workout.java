@@ -7,6 +7,7 @@ import java.io.Serializable;
 @Table(name = "workouts")
 public class Workout implements Serializable{
 
+
     public Workout(String name, String description) {
         this.name = name;
         this.description = description;
@@ -19,6 +20,7 @@ public class Workout implements Serializable{
 
     @Id
     @Column(name = "id", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name", nullable = false)

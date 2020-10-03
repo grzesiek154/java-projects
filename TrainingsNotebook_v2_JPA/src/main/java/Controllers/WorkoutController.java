@@ -1,17 +1,17 @@
 package Controllers;
 
-import Entities.BaseController;
+
 import Entities.Workout;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+
 
 public class WorkoutController {
 
-    private List<String> COLUMNS_NAMES = Arrays.asList("name", "description");
+
     private static EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("TrainingsNotebook_v2_JPA");
 

@@ -1,87 +1,48 @@
 package Entities;
 
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity(name = "Exercises")
 @Table(name = "exercises")
-public class Exercise {
+public class Exercise implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id", unique = true)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "name", nullable = false)
     private String name;
+
     @Column(name = "type")
     private String type;
-    @Column(name = "description", nullable = false)
+
+    @Column(name = "description")
     private String description;
+
     @Column(name = "reps")
     private int reps;
+
     @Column(name = "duration")
     private int duration;
-    @Column(name = "duration", nullable = false)
+
+    @Column(name = "workoutId")
     private Long workoutId;
 
 
-    private Exercise(ExerciseBuilder builder) {
-        this.name = builder.name;
-        this.type = builder.type;
-        this.description = builder.description;
-        this.reps = builder.reps;
-        this.duration = builder.time;
-        this.workoutId = builder.workoutId;
+    public Exercise() {
     }
 
-    public static class ExerciseBuilder {
-        private String name;
-        private String type;
-        private String description;
-        private int reps;
-        private int time;
-        private Long workoutId;
 
-        public ExerciseBuilder() {
+    public Long getId() {
+        return id;
+    }
 
-        }
-
-
-        public ExerciseBuilder name(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public ExerciseBuilder workoutId(Long workoutID) {
-            this.workoutId = workoutID;
-            return this;
-        }
-        public ExerciseBuilder type(String type) {
-            this.type = type;
-            return this;
-        }
-
-        public ExerciseBuilder description(String description) {
-            this.description = description;
-            return this;
-        }
-        public ExerciseBuilder reps(int reps) {
-            this.reps = reps;
-            return this;
-        }
-
-        public ExerciseBuilder time(int time) {
-            this.time = time;
-            return this;
-        }
-
-
-        public Exercise build() {
-            Exercise exercise = new Exercise(this);
-            return exercise;
-        }
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

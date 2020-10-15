@@ -1,5 +1,8 @@
-import Controllers.ExerciseController;
+import Controllers.*;
+import DAO.ExerciseDaoImpl;
+import DAO.WorkoutDaoImpl;
 import Entities.Exercise;
+import Entities.Workout;
 
 import java.util.*;
 
@@ -7,29 +10,28 @@ public class Main {
 
     public static void main(String[] args) {
 
-//     WorkoutController.printSingleWorkout(1L);
-//     WorkoutController.deleteWorkout(2L);
-//     WorkoutController.printAllWorkouts();
 
-        Map<String, Object> exerciseValues = new HashMap<>();
-        exerciseValues.put("name", "Zuzia");
-        exerciseValues.put("workoutId", 14L);
-        exerciseValues.put("reps", 100);
-        exerciseValues.put("DesCription", "this is another test workout description");
-        exerciseValues.put("type", "legs");
+        StringBuilder sb = new StringBuilder();
+        Exercise exercise1 = new Exercise();
+        exercise1.setName("clean and press");
+        exercise1.setType("weight lifting");
+        exercise1.setWorkout(new Workout("clean and press", "clean and press workout"));
 
-        ExerciseController.addExercise(exerciseValues);
-        //ExerciseController.addExercise(exerciseValues);
-//       WorkoutController.addWorkout("test workout", "qwe zxc asd");
+        Exercise exercise2 = new Exercise();
+        exercise2.setName("exercise2");
+        exercise2.setType("strength");
 
+        BaseController controller = new WorkoutController(new WorkoutDaoImpl());
 
+        BaseController exerciseController = new ExerciseController(new ExerciseDaoImpl());
 
 
-//        Exercise exercise = ExerciseController.createProperExercise(exerciseValues);
-//        System.out.println(exercise.getName());
-//
-//        System.out.println(exercise.getDescription());
-//        System.out.println(exercise.getReps());
+        BaseController controller1 = ControllerFactoryImpl.createController("training");
+
+        
+
+
+
 
     }
 }

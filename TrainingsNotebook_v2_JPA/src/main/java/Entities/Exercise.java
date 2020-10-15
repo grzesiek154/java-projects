@@ -2,6 +2,7 @@ package Entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity(name = "Exercises")
 @Table(name = "exercises")
@@ -29,9 +30,12 @@ public class Exercise implements Serializable {
     @Column(name = "duration")
     private int duration;
 
-    @Column(name = "workoutId")
-    private Long workoutId;
+    @ManyToMany(mappedBy = "trainingExercises")
+    private List<Training> trainings;
 
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "workoutId", nullable = false)
+    private Workout workout;
 
     public Exercise() {
     }
@@ -85,11 +89,19 @@ public class Exercise implements Serializable {
         this.duration = duration;
     }
 
-    public Long getWorkoutId() {
-        return workoutId;
+    public List<Training> getTrainings() {
+        return trainings;
     }
 
-    public void setWorkoutId(Long workoutId) {
-        this.workoutId = workoutId;
+    public void setTrainings(List<Training> trainings) {
+        this.trainings = trainings;
+    }
+
+    public Workout getWorkout() {
+        return workout;
+    }
+
+    public void setWorkout(Workout workout) {
+        this.workout = workout;
     }
 }

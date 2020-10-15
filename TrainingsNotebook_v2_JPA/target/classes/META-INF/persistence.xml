@@ -19,6 +19,7 @@ mapped to database tables. Database driver, location, userid and pw
         <class>com.grzesiek.TrainingsNotebook_v2_JPA.Entities.Workout</class>
         <class>com.grzesiek.TrainingsNotebook_v2_JPA.Entities.ExerciseOld</class>
         <class>com.grzesiek.TrainingsNotebook_v2_JPA.Entities.Exercise</class>
+        <class>com.grzesiek.TrainingsNotebook_v2_JPA.Entities.Training</class>
         <properties>
             <!-- Driver for DB database -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

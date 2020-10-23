@@ -28,6 +28,14 @@ public class Main {
 
         BaseController controller1 = ControllerFactoryImpl.createController("training");
 
+        List<String> test = new ArrayList<>();
+        test.add("asd");
+        test.add("zxc");
+
+        test.remove("asd");
+
+        test.forEach(e -> System.out.println(e));
+
         
 
 

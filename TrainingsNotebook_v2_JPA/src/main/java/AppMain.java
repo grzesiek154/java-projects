@@ -5,36 +5,66 @@ public class AppMain {
 
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        System.out.println("Select correct option:");
-        System.out.println("1. Add Workout");
-        System.out.println("2. Add Exercise");
-        System.out.println("3. Add Training");
-        System.out.println("4. Close App");
-
-        while (sc.hasNext()) {
-
-
-            int firstOption = sc.nextInt();
-            System.out.println("User choice: " + firstOption);
-            if(firstOption == 1) {
-                System.out.println(sc.nextInt());
-                System.out.println("1. Save Data");
-            } else if(firstOption == 4) {
-                break;
-            }
-
-
-
-        }
+        printAppUI();
     }
+
+
+
+
 
     private static void clearScreen() {
         try {
             Runtime.getRuntime().exec("cls");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void printMenu() {
+        System.out.println("Select correct option:");
+        System.out.println(
+                "1. Add Workout\n" +
+                "2. Add Exercise\n"+
+                "3. Add Training\"\n" +
+                "4. Close App");
+
+    }
+
+    private static void printStandardOptions(String entityType) {
+        System.out.println("Select correct option:");
+        System.out.println(
+                "1. Add new "+ entityType +"\n" +
+                        "2. Update "+ entityType +"\n" +
+                        "3. Delete "+ entityType +"\n" +
+                        "4. Find "+ entityType + " by id" + "\n" +
+                        "5. Get all "+ entityType +"s" +"\n" +
+                        "6. Back to main menu " +"\n" +
+                        "7. Close App"
+        );
+
+    }
+
+    private static void printAppUI() {
+        Scanner sc = new Scanner(System.in);
+        boolean quit = false;
+
+
+        printMenu();
+
+        while (!quit) {
+            int action = sc.nextInt();
+
+            switch (action) {
+                case 1:
+                    printStandardOptions("Workout");
+                    break;
+                case 2:
+                    printStandardOptions("Exercise");
+                case 6:
+                    printMenu();
+                    break;
+            }
         }
     }
 }

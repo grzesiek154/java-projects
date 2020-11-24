@@ -11,35 +11,49 @@ public class Main {
     public static void main(String[] args) {
 
 
-        StringBuilder sb = new StringBuilder();
-        Exercise exercise1 = new Exercise();
-        exercise1.setName("clean and press");
-        exercise1.setType("weight lifting");
-        exercise1.setWorkout(new Workout("clean and press", "clean and press workout"));
+    Random random = new Random();
 
-        Exercise exercise2 = new Exercise();
-        exercise2.setName("exercise2");
-        exercise2.setType("strength");
+    double threshold;
+    double upperBound = 100.0;
+    double rand_double = random.nextDouble() * 100;
 
-        BaseController controller = new WorkoutController(new WorkoutDaoImpl());
+    System.out.println(rand_double);
+    boolean test = false;
 
-        BaseController exerciseController = new ExerciseController(new ExerciseDaoImpl());
-
-
-        BaseController controller1 = ControllerFactoryImpl.createController("training");
-
-        List<String> test = new ArrayList<>();
-        test.add("asd");
-        test.add("zxc");
-
-        test.remove("asd");
-
-        test.forEach(e -> System.out.println(e));
-
-        
+//    if(rand_double <= 20) {
+//        test = true;
+//        System.out.println("value under 20 found :" + rand_double);
+//    } else if (rand_double == 2) {
+//        test = false;
+//        System.out.println("value 2 found");
+//
+//    }
+//
+//        System.out.println("test value: " + test);
 
 
+//    try {
+//        threshold = 0;
+//
+//        if(rand_double <= 20) {
+//
+//            threshold = 20;
+//        } else {
+//            threshold = 60;
+//
+//        }
+//        System.out.println("threshold " + threshold);
+//    } catch (Exception e) {
+//        e.printStackTrace();
+//
+if(test) {
+    System.out.println("works");
+} else {
+    System.out.println("not works");
+}
 
 
     }
+
+
 }

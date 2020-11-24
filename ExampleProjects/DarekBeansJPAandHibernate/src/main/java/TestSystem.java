@@ -4,16 +4,20 @@ import javax.persistence.Persistence;
 
 public class TestSystem {
 
-    private static EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
-            .createEntityManagerFactory("DarekBeansJPAandHibernate");
 
     public static void main(String[] args) {
+        boolean isOnList = true;
+        boolean isAbove = false;
+        int limit = 50;
+        int value = 60;
 
-        ENTITY_MANAGER_FACTORY.close();
-    }
-
-    public static void addCustomer(int id, String fname, String lname) {
-        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        if(isOnList) {
+            if(isAbove && limit >  value) {
+                System.out.println("above limit");
+            } else if (!isAbove && limit < value) {
+                System.out.println("below limit");
+            }
+        }
     }
 
 

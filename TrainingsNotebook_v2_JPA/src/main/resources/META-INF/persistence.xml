@@ -22,15 +22,19 @@ mapped to database tables. Database driver, location, userid and pw
         <class>com.grzesiek.TrainingsNotebook_v2_JPA.Entities.Training</class>
         <properties>
             <!-- Driver for DB database -->
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+<!--            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />-->
 
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-            <!-- URL for DB -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/trainings_notebook?serverTimezone=UTC" />
-            <!-- Username -->
-            <property name="javax.persistence.jdbc.user" value="root" />
-            <!-- Password -->
-            <property name="javax.persistence.jdbc.password" value="admin" />
+<!--            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>-->
+<!--            &lt;!&ndash; URL for DB &ndash;&gt;-->
+<!--            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/trainings_notebook?serverTimezone=UTC" />-->
+<!--            &lt;!&ndash; Username &ndash;&gt;-->
+<!--            <property name="javax.persistence.jdbc.user" value="admin" />-->
+<!--            &lt;!&ndash; Password &ndash;&gt;-->
+<!--            <property name="javax.persistence.jdbc.password" value="admin" />-->
+
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="javax.persistence.schema-generation.create-source" value="script"/>
+            <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/create.sql"/>
         </properties>
     </persistence-unit>
 </persistence>

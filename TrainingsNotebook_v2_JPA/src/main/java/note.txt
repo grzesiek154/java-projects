@@ -1,4 +1,0 @@
-1 Display list of options
-    1.2 Display available methods for selected option
-        1.3 Retreive from use needed data for selected method
-            1.4

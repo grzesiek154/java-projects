@@ -1,30 +1,25 @@
-import java.util.Random;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
+        Date date1 = new GregorianCalendar(2014, Calendar.FEBRUARY, 11, 12, 00,00).getTime();
+        Date date2 = new GregorianCalendar(2014, Calendar.FEBRUARY, 11, 20, 01,00).getTime();
 
-        Random random = new Random();
-        int upperLimit = 100;
-        double doubleLimit = 100;
-        int randomInt = random.nextInt(upperLimit);
-        double randomDouble = random.nextDouble() * 100;
-        boolean test;
+        double doubleDate1 = 1.6160184E12;
+        double doubleDate2 = 1.61604726E12;
 
-        System.out.println(randomInt);
-        System.out.println(randomDouble);
+        System.out.println((doubleDate1 - doubleDate2)/ 1000 / 60 / 60);
 
-        if(randomDouble < 21) {
-            System.out.println("Do the audit: " + randomDouble);
-        } else {
-            System.out.println("No audit: " + randomDouble);
-        }
+    }
 
-        test = false;
-        if(!test){
-            System.out.println("false");
-        } else {
-            System.out.println("true");
-        }
+
+
+    static double getPercentageDiff(double originalVal, double updatedVal) {
+        double result = 0;
+        result = ((updatedVal-originalVal) * 100)/ originalVal;
+        return result;
     }
 }
